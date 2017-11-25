@@ -6,7 +6,7 @@ var should = chai.should();
 chai.use(chaiHttp);
 
 describe("/GET por nome usuário", function() {
-  it("pesquisar usuário por nome", function() {
+  it("pesquisar usuário por nome", function(done) {
     chai.request(server)
       .get('/user/by-name?value=re')
       .end(function(err, res){
@@ -20,9 +20,9 @@ describe("/GET por nome usuário", function() {
 });
 
 describe("/GET por titulo livro", function() {
-  it("pesquisar livro por titulo", function() {
+  it("pesquisar livro por titulo", function(done) {
     chai.request(server)
-      .get('/book/by-title?value=t')
+      .get('/book/by-title?value=l')
       .end(function(err, res){
         res.should.have.status(200);
         res.body.should.be.a('array');
@@ -33,13 +33,52 @@ describe("/GET por titulo livro", function() {
 });
 
 describe("/GET por autor livro", function() {
-  it("pesquisar livro por autor", function() {
+  it("pesquisar livro por autor", function(done) {
     chai.request(server)
       .get('/book/by-author?value=a')
       .end(function(err, res){
         res.should.have.status(200);
         res.body.should.be.a('array');
         res.body.length.should.be.eql(3);
+        done();
+      });
+  });
+});
+
+describe("/GET por nome usuário inexistente", function() {
+  it("pesquisar usuário por nome que não existe", function(done) {
+    chai.request(server)
+      .get('/user/by-name?value=jdadsadso')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        res.body[0].should.have.property('name').contains('não encontrou resultados');
+        done();
+      });
+  });
+});
+
+describe("/GET por nome titulo inexistente", function() {
+  it("pesquisar livro por título que não existe", function(done) {
+    chai.request(server)
+      .get('/book/by-title?value=jdadsadso')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        res.body[0].should.have.property('title').contains('não encontrou resultados');
+        done();
+      });
+  });
+});
+
+describe("/GET por nome autor inexistente", function() {
+  it("pesquisar livro por autor que não existe", function(done) {
+    chai.request(server)
+      .get('/book/by-author?value=jdadsadso')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        res.body[0].should.have.property('author').contains('não encontrou resultados');
         done();
       });
   });
