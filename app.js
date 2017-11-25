@@ -13,6 +13,7 @@ var express = require('express')
 
 var app = express();
 
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -34,6 +35,18 @@ app.get('/user/by-name', user.list_by_name);
 app.get('/book/by-title', book.list_by_title);
 app.get('/book/by-author', book.list_by_author);
 
+mongoose.connect("mongodb://localhost:27017/bluehunter", function(err,db){
+  if(err) console.log(err);
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+process.on('SIGINT', function() {
+  mongoose.connection.close(function () {     
+    process.exit(0);
+  });
+});
+
+module.exports = app;
