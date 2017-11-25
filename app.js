@@ -44,7 +44,7 @@ http.createServer(app).listen(app.get('port'), function(){
 });
 
 process.on('SIGINT', function() {
-  mongoose.connection.close(function () {     
+  mongoose.connection.close(function () {
     process.exit(0);
   });
 });
