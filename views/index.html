@@ -1,16 +1,16 @@
 <html ng-app="index">
 <head>
-<!-- META -->
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Optimize mobile viewport -->
 
-<title>Node/Angular Todo App</title>
 
-<!-- SCROLLS -->
+<title>Blue Hunter</title>
+
+
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<!-- load bootstrap -->
+
 <style type="text/css">
 html {
 	overflow-y: scroll;
@@ -25,22 +25,21 @@ body {
 }
 </style>
 
-<!-- SPELLS -->
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"
 	type="text/javascript"></script>
-<!-- load jquery -->
+
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"
 	type="text/javascript"></script>
-<!-- load angular -->
-<script src="controllers/index.js" type="text/javascript"></script>
+
+<script src="indexController.js" type="text/javascript"></script>
 
 </head>
-<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+
 <body ng-controller="indexController">
 	<div class="container">
 
-		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
 			<h3>
 				Blue Hunter<span class="label label-info"></span>
@@ -48,24 +47,26 @@ body {
 		</div>
 
 		<div id="search" class="jumbotron text-center">
-			<input type="text" name="input" required ng-trim="false"><br/> 
-			<label>Search by: </label>
-			<label>	<input type="radio" ng-model="search.type" value="name">Name</label>
-			<label><input type="radio"  ng-model="search.type" value="title">Title</label>
-			<label><input type="radio"  ng-model="search.type" value="author">Author</label><br/>			
-			<button type="submit" class="btn btn-primary btn-lg" ng-click="list(search.type)">Pesquisa</button>
+			<input ng-model="text" type="text" name="input" ng-trim="true"><br/>
+			<label>Buscar por: </label>
+			<label><input type="radio" ng-model="by" value="name" ng-change="type='user'">Nome</label>
+			<label><input type="radio" ng-model="by" value="title" ng-change="type='book'">Título</label>
+			<label><input type="radio" ng-model="by" value="author" ng-change="type='book'">Autor</label><br/>
+			<input type="hidden" ng-model="type"/>
+			<button type="submit" class="btn btn-primary btn-lg" ng-click="list()">Pesquisa</button>
 		</div>
 
-		<div id="result" class="row">
-			<div class="col-sm-1">
-				<div class="checkbox" ng-repeat="res in result">
-					<label> <input type="checkbox" />{{res}}
-					</label>
+		<div id="result-list" class="row">
+			<div class="col-sm-2">
+				<div ng-show="type=='user'" ng-repeat="res in results">
+					<label>{{res.name}}</label>
 				</div>
-
+				<div ng-show="type=='book'" ng-repeat="res in results">
+					<label ng-show="by=='title'">{{res.title}}</label>
+					<label ng-show="by=='author'">{{res.author}}</label>
+				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

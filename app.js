@@ -5,9 +5,10 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
-  , book = require('./routes/book')
+  , user = require('./controllers/userController')
+  , book = require('./controllers/bookController')
   , http = require('http')
+  , mongoose = require('mongoose')
   , path = require('path');
 
 var app = express();
