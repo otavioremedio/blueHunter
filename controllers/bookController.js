@@ -2,7 +2,6 @@
 /*
  * GET books listing.
  */
- var mongoose = require('mongoose');
  var book = require('../models/Book');
 
 exports.list_by_title = function(req, res){

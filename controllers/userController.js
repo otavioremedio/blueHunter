@@ -2,7 +2,6 @@
 /*
  * GET users listing.
  */
-var mongoose = require('mongoose');
 var user = require('../models/User');
 
 exports.list_by_name = function(req, res){
