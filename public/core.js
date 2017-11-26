@@ -16,5 +16,5 @@ function indexController($scope, $http) {
           .error(function(res){
             console.log(res);
           });
-        }
-    };
+    }
+  };
