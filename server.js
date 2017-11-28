@@ -29,7 +29,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-mongoose.connect("mongodb://localhost:27017/bluehunter", function(err,db){
+// mongodb://localhost:27017/bluehunter
+
+var url = process.env.MONGOLAB_URI;
+console.log(process.env.MONGOLAB_URI);
+mongoose.connect(url, function(err,db){
   if(err) console.log(err);
 });
 
