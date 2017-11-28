@@ -32,12 +32,15 @@ if ('development' == app.get('env')) {
 // mongodb://localhost:27017/bluehunter
 
 var url = process.env.MONGODB_URI;
+mongoose.Promise = global.Promise;
 var promise = mongoose.connect(url, {
   useMongoClient: true
 });
 
 promise.then(function(db) {
   console.log("connected");
+}, function(err){
+  console.log("Error: " + err);
 });
 
 http.createServer(app).listen(app.get('port'), function(){
