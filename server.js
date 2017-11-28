@@ -32,7 +32,6 @@ if ('development' == app.get('env')) {
 // mongodb://localhost:27017/bluehunter
 
 var url = process.env.MONGOLAB_URI;
-console.log(process.env.MONGOLAB_URI);
 mongoose.connect(url, function(err,db){
   if(err) console.log(err);
 });
