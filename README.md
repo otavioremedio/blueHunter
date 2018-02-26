@@ -2,6 +2,7 @@
 
 # blueHunter
 
+Teste para a IBM, feito em node.js
 
 
 ## Usage
